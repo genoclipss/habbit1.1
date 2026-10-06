@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kebiasaan</title>
+  <meta name="theme-color" content="#16162A">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --paper: #EBEAEE;
+      --card: #F6F5F8;
+      --ink: #16162A;
+      --mute: #6B6A7B;
+      --line: #CFCDD6;
+      --brass: #9C7A3C;
+      --brass2: #B8924A;
+      --plum: #3B1F3A
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font: 15px/1.5 'Hanken Grotesk', system-ui, sans-serif;
+      padding: env(safe-area-inset-top) 0 80px
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      background: none;
+      border: 0;
+      cursor: pointer
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--brass);
+      outline-offset: 2px
+    }
+
+    .serif {
+      font-family: 'Cormorant Garamond', Georgia, serif
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px 20px
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--mute);
+      font-size: 13px;
+      margin-bottom: 28px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px
+    }
+
+    @media(min-width:900px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: 56px
+      }
+
+      .side {
+        position: sticky;
+        top: 24px;
+        align-self: start
+      }
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: clamp(44px, 8vw, 84px);
+      line-height: .95;
+      letter-spacing: -.02em
+    }
+
+    .sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      color: var(--brass);
+      margin-top: 6px
+    }
+
+    .nav {
+      display: flex;
+      gap: 6px;
+      margin: 18px 0 22px
+    }
+
+    .nav button {
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 13px
+    }
+
+    .nav button:hover {
+      border-color: var(--ink)
+    }
+
+    .bar {
+      height: 6px;
+      background: var(--line);
+      border-radius: 99px;
+      overflow: hidden
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      background: var(--brass);
+      border-radius: 99px;
+      transition: width .35s
+    }
+
+    .prog {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 8px
+    }
+
+    .prog .bar {
+      flex: 1
+    }
+
+    .prog b {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 600;
+      min-width: 62px;
+      text-align: right
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .row .e {
+      font-size: 28px;
+      width: 40px;
+      text-align: center
+    }
+
+    .row .t {
+      flex: 1;
+      font-size: 17px
+    }
+
+    .row.done .t {
+      color: var(--mute);
+      text-decoration: line-through;
+      text-decoration-color: var(--brass)
+    }
+
+    .chk {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--ink);
+      display: grid;
+      place-items: center;
+      flex: none
+    }
+
+    .done .chk {
+      background: var(--ink);
+      color: var(--paper)
+    }
+
+    .ed {
+      color: var(--mute);
+      font-size: 13px;
+      padding: 4px 8px
+    }
+
+    .ed:hover {
+      color: var(--ink)
+    }
+
+    .add {
+      margin: 18px 0 34px;
+      padding: 11px 20px;
+      background: var(--ink);
+      color: var(--paper);
+      border-radius: 999px;
+      font-weight: 500
+    }
+
+    .empty {
+      padding: 28px 0;
+      color: var(--mute)
+    }
+
+    label.l {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      margin-bottom: 8px
+    }
+
+    textarea,
+    input {
+      width: 100%;
+      font: inherit;
+      color: inherit;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.6
+    }
+
+    .week {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin: 12px 0 30px
+    }
+
+    .wd {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 0;
+      border-radius: 10px
+    }
+
+    .wd.sel {
+      background: var(--card);
+      box-shadow: inset 0 0 0 1px var(--ink)
+    }
+
+    .wd .col {
+      width: 100%;
+      max-width: 26px;
+      height: 84px;
+      background: var(--line);
+      border-radius: 6px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden
+    }
+
+    .wd .col i {
+      display: block;
+      width: 100%;
+      background: var(--brass);
+      transition: height .35s
+    }
+
+    .wd small {
+      color: var(--mute);
+      font-size: 12px
+    }
+
+    .wd.today small {
+      color: var(--brass);
+      font-weight: 600
+    }
+
+    .scratch {
+      background: var(--plum);
+      color: #EDE7EE;
+      border-radius: 14px;
+      padding: 18px
+    }
+
+    .scratch h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      text-align: left
+    }
+
+    .scratch textarea {
+      background: rgba(255, 255, 255, .07);
+      border-color: rgba(255, 255, 255, .18);
+      color: #fff;
+      min-height: 220px;
+      margin-top: 12px
+    }
+
+    .scratch .pt {
+      font-size: 13px;
+      color: #cdbfd0;
+      margin-top: 8px
+    }
+
+    .scratch .pt:hover {
+      color: #fff
+    }
+
+    @media(max-width:899px) {
+      .scratch {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        bottom: calc(10px + env(safe-area-inset-bottom));
+        z-index: 5;
+        max-height: 70vh;
+        box-shadow: 0 10px 40px rgba(22, 22, 42, .35)
+      }
+
+      .scratch.shut textarea,
+      .scratch.shut .pt {
+        display: none
+      }
+
+      .scratch textarea {
+        min-height: 180px
+      }
+    }
+
+    .months {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+      margin-top: 16px
+    }
+
+    .m {
+      text-align: left;
+      padding: 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      display: block;
+      width: 100%
+    }
+
+    .m:hover {
+      border-color: var(--ink)
+    }
+
+    .m .n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px
+    }
+
+    .m .p {
+      float: right;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      color: var(--brass);
+      font-weight: 600
+    }
+
+    .strip {
+      display: grid;
+      grid-template-columns: repeat(31, 1fr);
+      gap: 2px;
+      margin-top: 12px
+    }
+
+    .strip i {
+      height: 14px;
+      border-radius: 2px;
+      background: var(--line)
+    }
+
+    .yr {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 56px
+    }
+
+    .yr h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 38px
+    }
+
+    dialog {
+      border: 0;
+      border-radius: 16px;
+      padding: 26px;
+      background: var(--paper);
+      color: var(--ink);
+      width: min(560px, 94vw);
+      max-height: 88vh
+    }
+
+    dialog::backdrop {
+      background: rgba(22, 22, 42, .55)
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0 16px
+    }
+
+    .chips button {
+      font-size: 22px;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid var(--line)
+    }
+
+    .chips button.on {
+      border-color: var(--ink);
+      background: var(--card)
+    }
+
+    .acts {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      margin-top: 20px
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--ink)
+    }
+
+    .btn.p {
+      background: var(--ink);
+      color: var(--paper)
+    }
+
+    .btn.x {
+      border-color: #9b2c2c;
+      color: #9b2c2c
+    }
+
+    .hist {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .hist .h {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-weight: 500
+    }
+
+    .hist .em {
+      margin: 8px 0 4px;
+      font-size: 20px;
+      letter-spacing: 2px
+    }
+
+    .hist .em .o {
+      opacity: .22;
+      filter: grayscale(1)
+    }
+
+    .hist p {
+      color: var(--mute);
+      font-size: 14px;
+      white-space: pre-wrap
+    }
+
+    .auth {
+      max-width: 380px;
+      margin: 12vh auto;
+      padding: 20px
+    }
+
+    .auth input {
+      margin: 8px 0
+    }
+
+    .auth .err {
+      color: #9b2c2c;
+      font-size: 14px;
+      min-height: 20px
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      * {
+        transition: none !important
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <dialog id="dlg"></dialog>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script>
+    const SB_URL = 'https://gagneowskocluibamhzaL.supabase.co', SB_KEY = 'https://gagneowskocluibamhza.supabase.co/rest/v1/';
+    const sb = supabase.createClient(SB_URL, SB_KEY);
+    const $ = s => document.querySelector(s);
+    const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    const parse = s => { const [a, b, c] = s.split('-').map(Number); return new Date(a, b - 1, c) };
+    const today = () => iso(new Date());
+    const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const ID = 'id-ID', MON = [...Array(12)].map((_, i) => new Date(2000, i, 1).toLocaleDateString(ID, { month: 'long' }));
+    const EMO = ['💧', '🏃', '📖', '🧘', '🥗', '😴', '💊', '✍️', '🎯', '🧹', '💻', '🎸', '🌿', '🙏', '🦷', '🚭'];
+    const S = { habits: [], logs: {}, notes: {}, scratch: '', day: today(), year: new Date().getFullYear(), uid: null, open: false, mode: 'in', err: '' };
+    const hs = day => S.habits.filter(h => h.start <= day);
+    const stat = day => { const a = hs(day), d = a.filter(h => S.logs[h.id + '|' + day]).length; return { t: a.length, d, p: a.length ? d / a.length : 0 } };
+    const pc = p => Math.round(p * 100) + '%';
+
+    sb.auth.onAuthStateChange((_e, s) => { const id = s?.user?.id || null; if (id === S.uid && _e !== 'INITIAL_SESSION') return; S.uid = id; id ? load() : render() });
+
+    async function load() {
+      const y = S.year, a = `${y - 1}-12-25`, b = `${y + 1}-01-07`;
+      const [h, l, n, s] = await Promise.all([
+        sb.from('habits').select('*').order('created_at'),
+        sb.from('logs').select('habit_id,day').gte('day', a).lte('day', b).limit(10000),
+        sb.from('notes').select('day,body').gte('day', a).lte('day', b),
+        sb.from('scratch').select('body').maybeSingle()]);
+      S.habits = (h.data || []).map(x => ({ ...x, start: iso(new Date(x.created_at)) }));
+      S.logs = {}; (l.data || []).forEach(r => S.logs[r.habit_id + '|' + r.day] = 1);
+      S.notes = {}; (n.data || []).forEach(r => S.notes[r.day] = r.body);
+      S.scratch = s.data?.body || ''; render();
+    }
+    function setDay(d) { S.day = d; const y = parse(d).getFullYear(); if (y !== S.year) { S.year = y; load() } else render() }
+    const shift = n => { const d = parse(S.day); d.setDate(d.getDate() + n); setDay(iso(d)) };
+    function setYear(y) { S.year = y; load() }
+
+    async function toggle(id) {
+      const k = id + '|' + S.day;
+      if (S.logs[k]) { delete S.logs[k]; render(); await sb.from('logs').delete().match({ habit_id: id, day: S.day }) }
+      else { S.logs[k] = 1; render(); await sb.from('logs').insert({ habit_id: id, day: S.day }) }
+    }
+    let tn, ts;
+    function noteIn(v) { S.notes[S.day] = v; const d = S.day; clearTimeout(tn); tn = setTimeout(() => sb.from('notes').upsert({ user_id: S.uid, day: d, body: v }), 600) }
+    function scratchIn(v) { S.scratch = v; clearTimeout(ts); ts = setTimeout(() => sb.from('scratch').upsert({ user_id: S.uid, body: v }), 600) }
+    function bullets(e) {
+      if (e.key !== 'Enter') return; const t = e.target, p = t.selectionStart, ln = t.value.slice(0, p).split('\n').pop();
+      if (ln.startsWith('• ')) {
+        e.preventDefault(); const ins = ln === '• ' ? '' : '\n• ';
+        if (ln === '• ') { t.value = t.value.slice(0, p - 2) + '\n' + t.value.slice(p); t.selectionStart = t.selectionEnd = p - 1 }
+        else { t.setRangeText(ins, p, p, 'end') } scratchIn(t.value)
+      }
+    }
+    function addBullet() { const t = $('#sc'); t.focus(); const p = t.selectionStart, v = t.value, pre = (v && !v.slice(0, p).endsWith('\n')) ? '\n' : ''; t.setRangeText(pre + '• ', p, p, 'end'); scratchIn(t.value) }
+
+    function habitDlg(id) {
+      const h = S.habits.find(x => x.id === id) || { title: '', emoji: '🎯' }; S.em = h.emoji;
+      $('#dlg').innerHTML = `<label class="l">${id ? 'Ubah kebiasaan' : 'Kebiasaan baru'}</label>
+  <input id="hn" placeholder="Contoh: Minum 2 liter air" value="${esc(h.title)}" maxlength="80">
+  <div class="chips">${EMO.map(e => `<button type="button" class="${e === h.emoji ? 'on' : ''}" onclick="pick('${e}',this)">${e}</button>`).join('')}</div>
+  <input id="he" value="${esc(h.emoji)}" maxlength="4" aria-label="Emoji sendiri" oninput="S.em=this.value">
+  <div class="acts"><span>${id ? `<button class="btn x" onclick="delHabit('${id}')">Hapus</button>` : ''}</span>
+  <span><button class="btn" onclick="$('#dlg').close()">Batal</button> <button class="btn p" onclick="saveHabit('${id || ''}')">Simpan</button></span></div>`;
+      $('#dlg').showModal();
+    }
+    function pick(e, b) { S.em = e; $('#he').value = e; document.querySelectorAll('.chips button').forEach(x => x.classList.toggle('on', x === b)) }
+    async function saveHabit(id) {
+      const title = $('#hn').value.trim(); if (!title) return; const emoji = S.em || '🎯';
+      id ? await sb.from('habits').update({ title, emoji }).eq('id', id) : await sb.from('habits').insert({ title, emoji });
+      $('#dlg').close(); load();
+    }
+    async function delHabit(id) { if (!confirm('Hapus kebiasaan ini beserta seluruh riwayatnya?')) return; await sb.from('habits').delete().eq('id', id); $('#dlg').close(); load() }
+
+    function monthDlg(m) {
+      const y = S.year, n = new Date(y, m + 1, 0).getDate(), t = today(); let out = '';
+      for (let d = n; d >= 1; d--) {
+        const k = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`; if (k > t) continue;
+        const st = stat(k), nt = S.notes[k];
+        out += `<div class="hist"><div class="h"><span>${parse(k).toLocaleDateString(ID, { weekday: 'long', day: 'numeric' })}</span><span>${st.d}/${st.t} · ${pc(st.p)}</span></div>
+    <div class="bar" style="margin-top:6px"><i style="width:${st.p * 100}%"></i></div>
+    <div class="em">${hs(k).map(h => `<span class="${S.logs[h.id + '|' + k] ? '' : 'o'}" title="${esc(h.title)}">${h.emoji}</span>`).join('')}</div>
+    ${nt ? `<p>${esc(nt)}</p>` : ''}</div>`;
+      }
+      $('#dlg').innerHTML = `<div style="display:flex;justify-content:space-between;align-items:baseline"><h1 style="font-size:44px">${MON[m]} ${y}</h1><button class="ed" onclick="$('#dlg').close()">Tutup</button></div>
+  <div style="overflow:auto;max-height:68vh;margin-top:10px">${out || '<p class="empty">Belum ada riwayat bulan ini.</p>'}</div>`;
+      $('#dlg').showModal();
+    }
+
+    async function auth() {
+      const email = $('#em').value.trim(), password = $('#pw').value;
+      const r = S.mode === 'in' ? await sb.auth.signInWithPassword({ email, password }) : await sb.auth.signUp({ email, password });
+      if (r.error) { S.err = r.error.message; render() }
+      else if (S.mode === 'up' && !r.data.session) { S.err = 'Cek email untuk konfirmasi, lalu masuk.'; S.mode = 'in'; render() }
+    }
+    const logout = () => sb.auth.signOut();
+
+    function render() {
+      const A = $('#app');
+      if (!S.uid) {
+        A.innerHTML = `<div class="auth"><h1 style="font-size:64px">Kebiasaan</h1><p class="sub">${S.mode === 'in' ? 'Masuk' : 'Buat akun'}</p><br>
+    <input id="em" type="email" placeholder="Email" autocomplete="email"><input id="pw" type="password" placeholder="Kata sandi (min. 6 karakter)" autocomplete="current-password" onkeydown="if(event.key==='Enter')auth()">
+    <p class="err">${esc(S.err)}</p><button class="btn p" onclick="auth()">${S.mode === 'in' ? 'Masuk' : 'Daftar'}</button>
+    <button class="ed" onclick="S.mode=S.mode==='in'?'up':'in';S.err='';render()">${S.mode === 'in' ? 'Belum punya akun? Daftar' : 'Sudah punya akun? Masuk'}</button></div>`; return;
+      }
+      const t = today(), d = parse(S.day), st = stat(S.day), list = hs(S.day);
+      const mon = new Date(d); mon.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+      const wk = [...Array(7)].map((_, i) => { const x = new Date(mon); x.setDate(mon.getDate() + i); return iso(x) });
+      const wst = wk.map(stat), wavg = wst.filter(s => s.t).reduce((a, s, _, r) => a + s.p / r.length, 0);
+      const months = MON.map((_, m) => {
+        const n = new Date(S.year, m + 1, 0).getDate(); let sum = 0, c = 0, cells = '';
+        for (let i = 1; i <= 31; i++) {
+          if (i > n) { cells += '<i style="opacity:0"></i>'; continue }
+          const k = `${S.year}-${String(m + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`, s = k <= t ? stat(k) : { t: 0, p: 0 };
+          if (s.t) { sum += s.p; c++ } cells += `<i style="${s.t ? `background:var(--brass);opacity:${.15 + s.p * .85}` : ''}"></i>`;
+        }
+        return `<button class="m" onclick="monthDlg(${m})"><span class="p">${c ? pc(sum / c) : '–'}</span><span class="n">${MON[m]}</span><div class="strip">${cells}</div></button>`;
+      }).join('');
+      A.innerHTML = `<div class="wrap">
+  <div class="top"><span>${esc(S.habits.length)} kebiasaan</span><button class="ed" onclick="logout()">Keluar</button></div>
+  <div class="grid"><main>
+    <h1>${d.toLocaleDateString(ID, { weekday: 'long' })}</h1>
+    <p class="sub">${d.toLocaleDateString(ID, { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+    <div class="nav"><button onclick="shift(-1)" aria-label="Hari sebelumnya">‹</button><button onclick="setDay(today())">Hari ini</button><button onclick="shift(1)" aria-label="Hari berikutnya">›</button></div>
+    <div class="prog"><div class="bar"><i style="width:${st.p * 100}%"></i></div><b>${st.d}/${st.t}</b></div>
+    ${list.length ? list.map(h => `<div class="row ${S.logs[h.id + '|' + S.day] ? 'done' : ''}">
+      <span class="e">${esc(h.emoji)}</span><span class="t">${esc(h.title)}</span>
+      <button class="ed" onclick="habitDlg('${h.id}')">Ubah</button>
+      <button class="chk" onclick="toggle('${h.id}')" aria-label="Selesai: ${esc(h.title)}" aria-pressed="${!!S.logs[h.id + '|' + S.day]}">${S.logs[h.id + '|' + S.day] ? '✓' : ''}</button></div>`).join('') : '<p class="empty">Belum ada kebiasaan. Tambahkan yang pertama.</p>'}
+    <button class="add" onclick="habitDlg()">Tambah kebiasaan</button>
+    <label class="l" for="dn">Catatan hari ini</label>
+    <textarea id="dn" oninput="noteIn(this.value)" placeholder="Apa yang terjadi hari ini?">${esc(S.notes[S.day] || '')}</textarea>
+  </main>
+  <aside class="side">
+    <label class="l">Minggu ini · ${pc(wavg)}</label>
+    <div class="week">${wk.map((k, i) => `<button class="wd ${k === S.day ? 'sel' : ''} ${k === t ? 'today' : ''}" onclick="setDay('${k}')"><div class="col"><i style="height:${wst[i].p * 100}%"></i></div><small>${parse(k).toLocaleDateString(ID, { weekday: 'short' })}</small></button>`).join('')}</div>
+    <div class="scratch ${S.open ? '' : 'shut'}"><button class="h3 serif" style="all:unset;cursor:pointer;display:block;width:100%" onclick="S.open=!S.open;render()"><h3>Catatan <span style="font-size:14px;opacity:.7">${S.open ? 'Tutup' : 'Buka'}</span></h3></button>
+      <textarea id="sc" oninput="scratchIn(this.value)" onkeydown="bullets(event)" placeholder="Poin-poin atau tulisan bebas">${esc(S.scratch)}</textarea>
+      <button class="pt" onclick="addBullet()">+ Tambah poin</button></div>
+  </aside></div>
+  <div class="yr"><h2>Ringkasan bulanan</h2><div class="nav" style="margin:0"><button onclick="setYear(${S.year - 1})" aria-label="Tahun sebelumnya">‹</button><button disabled style="min-width:64px">${S.year}</button><button onclick="setYear(${S.year + 1})" aria-label="Tahun berikutnya">›</button></div></div>
+  <div class="months">${months}</div></div>`;
+    }
+    if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+    render();
+  </script>
+</body>
+
+</html>
